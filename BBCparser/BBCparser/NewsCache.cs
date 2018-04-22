@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json.Linq;
 
 namespace BBCparser
@@ -24,36 +24,35 @@ namespace BBCparser
         public bool IsAlreadySaved(string title, DateTime date)
         {
             if (_newsCache.TryGetValue(title, out var dateFromCache))
-            {
                 return dateFromCache.Equals(date);
-                
-            }
             return false;
         }
 
         public void LoadPreviousJson()
         {
-            foreach (string file in Directory.EnumerateFiles(Path.Combine(Directory.GetCurrentDirectory(),"feed",JsonGenerator.CurrentDateTime())))
-            {
-                var json = File.ReadAllText(file);
-                JObject jsonObject = JObject.Parse(json);
-                foreach (var item in jsonObject["items"])
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "feed", JsonGenerator.CurrentDateTime());
+            if (Directory.Exists(path) && Directory.EnumerateFiles(path).Any())
+                foreach (var file in Directory.EnumerateFiles(path))
                 {
-                    var date = item["pubDate"];
-                    var formattedDate = DateFormatter.ChangePubdateFormat(date.ToString());
-                    if (!_newsCache.ContainsKey(item["title"].ToString()))
-                    
-                    try
+                    var json = File.ReadAllText(file);
+                    var jsonObject = JObject.Parse(json);
+                    foreach (var item in jsonObject["items"])
                     {
-                        UpdateCache(item["title"].ToString(), formattedDate.Date);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        throw;
+                        var date = item["pubDate"];
+                        var formattedDate = DateFormatter.ChangePubdateFormat(date.ToString());
+                        if (!_newsCache.ContainsKey(item["title"].ToString()))
+
+                            try
+                            {
+                                UpdateCache(item["title"].ToString(), formattedDate.Date);
+                            }
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e);
+                                throw;
+                            }
                     }
                 }
-            }
         }
     }
 }
