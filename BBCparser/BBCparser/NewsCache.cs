@@ -30,7 +30,7 @@ namespace BBCparser
 
         public void LoadPreviousJson()
         {
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "feed", JsonGenerator.CurrentDateTime());
+            var path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName, "feed", JsonGenerator.CurrentDate());
             if (Directory.Exists(path) && Directory.EnumerateFiles(path).Any())
                 foreach (var file in Directory.EnumerateFiles(path))
                 {

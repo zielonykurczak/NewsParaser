@@ -37,9 +37,8 @@ namespace BBCparser
         public void SaveJson()
         {
             var json = PrepareJson();
-            var fileName = @"\"+CurrentDateTime() +" " + DateTime.Now.Hour + ".json";
-
-            string path = Path.Combine(Directory.GetCurrentDirectory(),@"feed",CurrentDateTime());
+            var fileName = @"\"+CurrentDate() +" " + DateTime.Now.Hour + ".json";
+            string path = Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName,"feed",CurrentDate());
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
             
@@ -47,10 +46,10 @@ namespace BBCparser
             
         }
 
-        public static string CurrentDateTime()
+        public static string CurrentDate()
         {
-            var dateTime = DateTime.Now.Date.ToString("yyyy-MM-dd");
-            return dateTime;
+            var date = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            return date;
 
         }
     }
