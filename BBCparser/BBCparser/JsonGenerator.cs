@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace BBCparser
 {
-    public class JsonGenerator
+    class JsonGenerator
     {
         private readonly List<Content> _items;
 

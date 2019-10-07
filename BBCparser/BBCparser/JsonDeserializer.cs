@@ -1,5 +1,5 @@
 ﻿
-public class Rootobject
+class Rootobject
 {
     public string title { get; set; }
     public string link { get; set; }
@@ -7,7 +7,7 @@ public class Rootobject
     public Item[] items { get; set; }
 }
 
-public class Item
+class Item
 {
     public string title { get; set; }
     public string description { get; set; }

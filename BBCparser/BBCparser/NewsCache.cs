@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace BBCparser
 {
-    public class NewsCache
+    class NewsCache
     {
         private readonly Dictionary<string, DateTime> _newsCache;
 

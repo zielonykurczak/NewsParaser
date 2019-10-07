@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace BBCparser
 {
-    public class NewsFeeder
+    class NewsFeeder
     {
         private static List<Content> _items = new List<Content>();
         private static readonly HttpClient Client = new HttpClient();

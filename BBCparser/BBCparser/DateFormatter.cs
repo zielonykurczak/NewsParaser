@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace BBCparser
 {
-    public class DateFormatter
+    class DateFormatter
     {
         public static DateTime ChangePubdateFormat(string pubDate)
         {
